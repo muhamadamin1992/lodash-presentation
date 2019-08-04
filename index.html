@@ -1,0 +1,503 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Lodash</h1>
+					<p>Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, etc. Lodash’s modular methods are great for:</p>
+					<ul>
+						<li>Iterating arrays, objects, & strings</li>
+						<li>Manipulating & testing values</li>
+						<li>Creating composite functions</li>
+					</ul>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+
+					_.chunk(array, [size=1])
+
+					</div>
+
+					Creates an array of elements split into groups the length of size. If array can't be split evenly, the final chunk will be the remaining elements.
+					<div data-block-type="code">
+
+						_.chunk(['a', 'b', 'c', 'd'], 2);
+						// => [['a', 'b'], ['c', 'd']]
+						 
+						_.chunk(['a', 'b', 'c', 'd'], 3);
+						// => [['a', 'b', 'c'], ['d']]
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+
+					_.compact(array)
+					
+					</div>
+
+					Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are falsey.
+					<div data-block-type="code">
+
+						_.compact([0, 1, false, 2, '', 3]);
+						// => [1, 2, 3]
+
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+
+					_.concat(array, [values])
+					
+					</div>
+
+					Creates a new array concatenating array with any additional arrays and/or values.
+					<div data-block-type="code">
+
+						var array = [1];
+						var other = _.concat(array, 2, [3], [[4]]);
+						 
+						console.log(other);
+						// => [1, 2, 3, [4]]
+						 
+						console.log(array);
+						// => [1]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.difference(array, [values])
+					</div>
+
+					Creates an array of array values not included in the other given arrays using SameValueZero for equality comparisons. The order and references of result values are determined by the first array.
+					<div data-block-type="code">
+
+						_.difference([2, 1], [2, 3]);
+						// => [1]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.differenceBy(array, [values], [iteratee=_.identity])
+					</div>
+
+					This method is like _.difference except that it accepts iteratee which is invoked for each element of array and values to generate the criterion by which they're compared. The order and references of result values are determined by the first array. The iteratee is invoked with one argument:(value).
+					<div data-block-type="code">
+
+						_.differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor);
+						// => [1.2]
+						 
+						// The `_.property` iteratee shorthand.
+						_.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x');
+						// => [{ 'x': 2 }]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.drop(array, [n=1])
+					</div>
+
+					Creates a slice of array with n elements dropped from the beginning.
+					<div data-block-type="code">
+
+						_.drop([1, 2, 3]);
+						// => [2, 3]
+						 
+						_.drop([1, 2, 3], 2);
+						// => [3]
+						 
+						_.drop([1, 2, 3], 5);
+						// => []
+						 
+						_.drop([1, 2, 3], 0);
+						// => [1, 2, 3]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.dropRight(array, [n=1])
+					</div>
+
+					Creates a slice of array with n elements dropped from the end.
+					<div data-block-type="code">
+
+						_.dropRight([1, 2, 3]);
+						// => [1, 2]
+						 
+						_.dropRight([1, 2, 3], 2);
+						// => [1]
+						 
+						_.dropRight([1, 2, 3], 5);
+						// => []
+						 
+						_.dropRight([1, 2, 3], 0);
+						// => [1, 2, 3]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.dropRightWhile(array, [predicate=_.identity])
+					</div>
+
+					Creates a slice of array excluding elements dropped from the end. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
+					<div data-block-type="code">
+
+						var users = [
+						  { 'user': 'barney',  'active': true },
+						  { 'user': 'fred',    'active': false },
+						  { 'user': 'pebbles', 'active': false }
+						];
+						 
+						_.dropRightWhile(users, function(o) { return !o.active; });
+						// => objects for ['barney']
+						 
+						// The `_.matches` iteratee shorthand.
+						_.dropRightWhile(users, { 'user': 'pebbles', 'active': false });
+						// => objects for ['barney', 'fred']
+						 
+						// The `_.matchesProperty` iteratee shorthand.
+						_.dropRightWhile(users, ['active', false]);
+						// => objects for ['barney']
+						 
+						// The `_.property` iteratee shorthand.
+						_.dropRightWhile(users, 'active');
+						// => objects for ['barney', 'fred', 'pebbles']
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.dropWhile(array, [predicate=_.identity])
+					</div>
+
+					Creates a slice of array excluding elements dropped from the beginning. Elements are dropped until predicate returns falsey. The predicate is invoked with three arguments: (value, index, array).
+					<div data-block-type="code">
+
+						var users = [
+						  { 'user': 'barney',  'active': false },
+						  { 'user': 'fred',    'active': false },
+						  { 'user': 'pebbles', 'active': true }
+						];
+						 
+						_.dropWhile(users, function(o) { return !o.active; });
+						// => objects for ['pebbles']
+						 
+						// The `_.matches` iteratee shorthand.
+						_.dropWhile(users, { 'user': 'barney', 'active': false });
+						// => objects for ['fred', 'pebbles']
+						 
+						// The `_.matchesProperty` iteratee shorthand.
+						_.dropWhile(users, ['active', false]);
+						// => objects for ['pebbles']
+						 
+						// The `_.property` iteratee shorthand.
+						_.dropWhile(users, 'active');
+						// => objects for ['barney', 'fred', 'pebbles']
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.fill(array, value, [start=0], [end=array.length])
+					</div>
+
+					Fills elements of array with value from start up to, but not including, end.
+
+					Note: This method mutates array.
+					<div data-block-type="code">
+
+						var array = [1, 2, 3];
+ 
+						_.fill(array, 'a');
+						console.log(array);
+						// => ['a', 'a', 'a']
+						 
+						_.fill(Array(3), 2);
+						// => [2, 2, 2]
+						 
+						_.fill([4, 6, 8, 10], '*', 1, 3);
+						// => [4, '*', '*', 10]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.findIndex(array, [predicate=_.identity], [fromIndex=0])
+					</div>
+
+					This method is like _.find except that it returns the index of the first element predicate returns truthy for instead of the element itself.
+					<div data-block-type="code">
+
+						var users = [
+						  { 'user': 'barney',  'active': false },
+						  { 'user': 'fred',    'active': false },
+						  { 'user': 'pebbles', 'active': true }
+						];
+						 
+						_.findIndex(users, function(o) { return o.user == 'barney'; });
+						// => 0
+						 
+						// The `_.matches` iteratee shorthand.
+						_.findIndex(users, { 'user': 'fred', 'active': false });
+						// => 1
+						 
+						// The `_.matchesProperty` iteratee shorthand.
+						_.findIndex(users, ['active', false]);
+						// => 0
+						 
+						// The `_.property` iteratee shorthand.
+						_.findIndex(users, 'active');
+						// => 2
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.findLastIndex(array, [predicate=_.identity], [fromIndex=array.length-1])
+					</div>
+
+					This method is like _.findIndex except that it iterates over elements of collection from right to left.
+					<div data-block-type="code">
+
+						var users = [
+						  { 'user': 'barney',  'active': true },
+						  { 'user': 'fred',    'active': false },
+						  { 'user': 'pebbles', 'active': false }
+						];
+						 
+						_.findLastIndex(users, function(o) { return o.user == 'pebbles'; });
+						// => 2
+						 
+						// The `_.matches` iteratee shorthand.
+						_.findLastIndex(users, { 'user': 'barney', 'active': true });
+						// => 0
+						 
+						// The `_.matchesProperty` iteratee shorthand.
+						_.findLastIndex(users, ['active', false]);
+						// => 2
+						 
+						// The `_.property` iteratee shorthand.
+						_.findLastIndex(users, 'active');
+						// => 0
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.flatten(array)
+					</div>
+
+					Flattens array a single level deep.
+					<div data-block-type="code">
+
+						_.flatten([1, [2, [3, [4]], 5]]);
+						// => [1, 2, [3, [4]], 5]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.flattenDeep(array)
+					</div>
+
+					Recursively flattens array.
+					<div data-block-type="code">
+
+						_.flattenDeep([1, [2, [3, [4]], 5]]);
+						// => [1, 2, 3, 4, 5]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.flattenDepth(array, [depth=1])
+					</div>
+
+					Recursively flatten array up to depth times.
+					<div data-block-type="code">
+
+						var array = [1, [2, [3, [4]], 5]];
+ 
+						_.flattenDepth(array, 1);
+						// => [1, 2, [3, [4]], 5]
+						 
+						_.flattenDepth(array, 2);
+						// => [1, 2, 3, [4], 5]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.nth(array, [n=0])
+					</div>
+
+					Gets the element at index n of array. If n is negative, the nth element from the end is returned.
+					<div data-block-type="code">
+
+						var array = ['a', 'b', 'c', 'd'];
+ 
+						_.nth(array, 1);
+						// => 'b'
+						 
+						_.nth(array, -2);
+						// => 'c';
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.take(array, [n=1])
+					</div>
+
+					Creates a slice of array with n elements taken from the beginning.
+					<div data-block-type="code">
+
+						_.take([1, 2, 3]);
+						// => [1]
+						 
+						_.take([1, 2, 3], 2);
+						// => [1, 2]
+						 
+						_.take([1, 2, 3], 5);
+						// => [1, 2, 3]
+						 
+						_.take([1, 2, 3], 0);
+						// => []
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.takeRight(array, [n=1])
+					</div>
+
+					Creates a slice of array with n elements taken from the end.
+					<div data-block-type="code">
+
+						_.takeRight([1, 2, 3]);
+						// => [3]
+						 
+						_.takeRight([1, 2, 3], 2);
+						// => [2, 3]
+						 
+						_.takeRight([1, 2, 3], 5);
+						// => [1, 2, 3]
+						 
+						_.takeRight([1, 2, 3], 0);
+						// => []
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.uniq(array)
+					</div>
+
+					Creates a duplicate-free version of an array, using SameValueZero for equality comparisons, in which only the first occurrence of each element is kept. The order of result values is determined by the order they occur in the array.
+					<div data-block-type="code">
+
+						_.uniq([2, 1, 2]);
+						// => [2, 1]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.union([arrays])
+					</div>
+
+					Creates an array of unique values, in order, from all given arrays using SameValueZero for equality comparisons.
+					<div data-block-type="code">
+
+						_.union([2], [1, 2]);
+						// => [2, 1]
+						
+					</div>
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
