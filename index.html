@@ -249,7 +249,7 @@
 
 					Fills elements of array with value from start up to, but not including, end.
 
-					Note: This method mutates array.
+					Note This method mutates array.
 					<div data-block-type="code">
 
 						var array = [1, 2, 3];
@@ -469,14 +469,95 @@
 				<section data-markdown>
 					<textarea data-template>
 					<div data-block-type="code">
-					_.union([arrays])
+					_.sample(collection)
 					</div>
 
-					Creates an array of unique values, in order, from all given arrays using SameValueZero for equality comparisons.
+					Gets a random element from collection.
 					<div data-block-type="code">
 
-						_.union([2], [1, 2]);
-						// => [2, 1]
+						_.sample([1, 2, 3, 4]);
+						// => 2
+
+						_.sample([1, 2, 3, 4]);
+						// => 4
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.sampleSize(collection, [n=1])
+					</div>
+
+					Gets n random elements at unique keys from collection up to the size of collection.
+					<div data-block-type="code">
+
+						_.sampleSize([1, 2, 3], 2);
+						// => [3, 1]
+						
+						_.sampleSize([1, 2, 3], 4);
+						// => [2, 3, 1]
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.size(collection)
+					</div>
+
+					Gets the size of collection by returning its length for array-like values or the number of own enumerable string keyed properties for objects.
+					<div data-block-type="code">
+
+						_.size([1, 2, 3]);
+						// => 3
+						
+						_.size({ 'a': 1, 'b': 2 });
+						// => 2
+						
+						_.size('pebbles');
+						// => 7
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.isEqual(value, other)
+					</div>
+
+					Performs a deep comparison between two values to determine if they are equivalent.
+
+					<div data-block-type="code">
+
+						var object = { 'a': 1 };
+						var other = { 'a': 1 };
+						
+						_.isEqual(object, other);
+						// => true
+						
+						object === other;
+						// => false
+						
+					</div>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					<div data-block-type="code">
+					_.invert(object)
+					</div>
+
+					Creates an object composed of the inverted keys and values of object. If object contains duplicate values, subsequent values overwrite property assignments of previous values.
+					<div data-block-type="code">
+
+						var object = { 'a': 1, 'b': 2, 'c': 1 };
+ 
+						_.invert(object);
+						// => { '1': 'c', '2': 'b' }
 						
 					</div>
 					</textarea>
